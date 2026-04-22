@@ -25,7 +25,7 @@ while True:
         if contraseña == resultado[0]:
             print("Acceso correcto")
             conexion.close()
-            break
+            exit()
         else:
             intentos += 1
             print(f"Incorrecta. Te quedan {max_intentos - intentos} intentos")
