@@ -1,32 +1,34 @@
-base_de_datos = {
-    "jere" : "1234",
-    "carlitos" : "abcd",
-    "manu123" : "234bcd",
-    "jose" : "12345"
-}
+import sqlite3
+
+conexion = sqlite3.connect("usuarios.db")
+cursor = conexion.cursor()
 
 while True:
-    usuario = input("Ingresa tu nombre de ususario: ").strip()
-    if usuario in base_de_datos:
-        print("Usuario correcto")
-#####################################################################d
-        intentos = 0
-        max_intentos = 3
+    usuario = input("Usuario: ").strip()
 
-        while intentos < max_intentos:
-            contraseña = input("Ingrese contraseña: ")
-            if contraseña == base_de_datos[usuario]:
-                print("Acceso concedido.")
-                break
+    # Buscar usuario en la DB
+    cursor.execute("SELECT contraseña FROM usuarios WHERE usuario = ?", (usuario,))
+    resultado = cursor.fetchone()
 
-            else:
-                intentos += 1
-                restantes = max_intentos-intentos
-                print(f"Contraseña incorrecta intenta nuevament.Te quedan {restantes} intentos")
+    if resultado is None:
+        print("Usuario inexistente")
+        continue
 
-        if intentos == max_intentos:
-            print("Bloqueado")  
-        break
+    print("Usuario correcto")
 
-    else:
-        print("Usuario inexistente. Intente nuevamente")
+    intentos = 0
+    max_intentos = 3
+
+    while intentos < max_intentos:
+        contraseña = input("Contraseña: ")
+
+        if contraseña == resultado[0]:
+            print("Acceso correcto")
+            conexion.close()
+            break
+        else:
+            intentos += 1
+            print(f"Incorrecta. Te quedan {max_intentos - intentos} intentos")
+
+    print("Usuario bloqueado")
+    break
