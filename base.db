@@ -1,0 +1,22 @@
+
+import sqlite3
+
+conexion = sqlite3.connect("usuarios.db")
+cursor = conexion.cursor()
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS usuarios (
+    usuario TEXT PRIMARY KEY,
+    contraseña TEXT
+)
+""")
+
+# Insertar usuarios de prueba
+cursor.execute("INSERT OR IGNORE INTO usuarios VALUES (?, ?)", ("jere", "1234"))
+cursor.execute("INSERT OR IGNORE INTO usuarios VALUES (?, ?)", ("carlitos", "abcd"))
+cursor.execute("INSERT OR IGNORE INTO usuarios VALUES (?, ?)", ("manu123", "234bcd"))
+
+conexion.commit()
+conexion.close()
+
+print("Base de datos creada")
