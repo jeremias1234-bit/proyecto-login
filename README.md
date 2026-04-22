@@ -16,8 +16,8 @@ Aplicación en Python que implementa un sistema de autenticación utilizando una
 
 proyecto-login/
 
-├── login.py  
-├── init_db.py  
+├── login_sqlite.py  
+├── base.db
 ├── usuarios.db  
 └── README.md  
 
@@ -33,13 +33,13 @@ cd proyecto-login
 2. Crear la base de datos (solo la primera vez):
 
 ```bash
-python init_db.py
+python base.db
 ```
 
 3. Ejecutar el sistema de login:
 
 ```bash
-python login.py
+python login_sqlite.py
 ```
 
 ## 📌 Notas
